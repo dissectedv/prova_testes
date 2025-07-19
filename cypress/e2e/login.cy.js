@@ -1,5 +1,8 @@
 describe('Testes de Login', () => {
   beforeEach(() => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+    cy.window().then(win => win.sessionStorage.clear())
     cy.visit('https://www.saucedemo.com/')
   })
 
