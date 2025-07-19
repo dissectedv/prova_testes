@@ -1,17 +1,24 @@
-describe('Automatizando testes no sauce demo', () => {
-    beforeEach(() => {
-        cy.visit('https://www.saucedemo.com/')
-    })
-    it('Teste com usuário locked_out_user ', () => {     
-        cy.login_sauce('locked_out_user', 'secret_sauce')
-        cy.get('h3').contains('Epic sadface: Sorry, this user has been locked out.').should('be.visible')
-    })
-    it('Teste com senha incorreta ', () => {     
-        cy.login_sauce('standard_user', 'incorrectpassword')
-        cy.get('h3').contains('Epic sadface: Username and password do not match any user in this service').should('be.visible')
-    })
-    it('Teste sem informar username ', () => {     
-        cy.login_sauce_without_username('secret_sauce')
-        cy.get('h3').contains('Epic sadface: Username is required').should('be.visible')
-    })
+describe('Testes de Login', () => {
+  beforeEach(() => {
+    cy.visit('https://www.saucedemo.com/')
+  })
+
+  it('LOGIN_001 - Login com sucesso', () => {
+    cy.get('#user-name').type('standard_user')
+    cy.get('#password').type('secret_sauce')
+    cy.get('#login-button').click()
+    cy.url().should('include', '/inventory.html')
+  })
+
+  it('LOGIN_002 - Senha incorreta', () => {
+    cy.get('#user-name').type('standard_user')
+    cy.get('#password').type('errado')
+    cy.get('#login-button').click()
+    cy.get('[data-test="error"]').should('contain', 'Username and password do not match')
+  })
+
+  it('LOGIN_003 - Campos vazios', () => {
+    cy.get('#login-button').click()
+    cy.get('[data-test="error"]').should('contain', 'Username is required')
+  })
 })
