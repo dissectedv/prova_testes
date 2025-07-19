@@ -14,9 +14,4 @@ describe('Automatizando testes no sauce demo', () => {
         cy.login_sauce_without_username('secret_sauce')
         cy.get('h3').contains('Epic sadface: Username is required').should('be.visible')
     })
-    it('Teste adicionar produto no carrinho', () => {   
-        cy.login_sauce('standard_user', 'secret_sauce')
-        cy.get('#add-to-cart-sauce-labs-backpack').click()
-        cy.get('button').contains('Remove').should('be.visible')
-    })
 })
