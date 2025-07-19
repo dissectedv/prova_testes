@@ -17,7 +17,7 @@ describe('Testes de Login', () => {
     cy.get('[data-test="error"]').should('contain', 'Username and password do not match')
   })
 
-  it('LOGIN_003 - teste - Campos vazios', () => {
+  it('LOGIN_003 - Campos vazios', () => {
     cy.get('#login-button').click()
     cy.get('[data-test="error"]').should('contain', 'Username is required')
   })
